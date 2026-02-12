@@ -3,7 +3,7 @@
 
 An AI-powered web application that detects network attacks in real-time using Deep Learning.
 
-2.png
+![Project Screenshot](2.png)
 
 ## 🚀 Overview
 This project automates cybersecurity threat detection. It analyzes network traffic logs (NSL-KDD dataset) and classifies connections as **Normal** or specific attacks like **DoS, Probe, R2L, and U2R**.
