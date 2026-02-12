@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDS Prediction Results</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        h2 { color: #333; }
+        
+        /* Form Styling */
+        form { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+
+        /* Summary Box Styling */
+        .summary-box { background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bbdefb; }
+        .summary-list { display: flex; flex-wrap: wrap; gap: 15px; list-style: none; padding: 0; }
+        .summary-list li { background: white; padding: 8px 12px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        /* Table Styling */
+        table { border-collapse: collapse; width: 100%; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        /* Highlight the prediction column */
+        td:last-child { font-weight: bold; color: #d9534f; } 
+    </style>
+</head>
+<body>
+
+    <h2>🛡️ Network Intrusion Detection System</h2>
+    
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="file">Upload Network Log (CSV):</label><br><br>
+        <input type="file" name="file" required>
+        <button type="submit">Analyze Traffic</button>
+    </form>
+
+    {% if summary %}
+    <div class="summary-box">
+        <h3>📊 Attack Summary</h3>
+        <ul class="summary-list">
+            {% for label, count in summary.items() %}
+                <li><strong>{{ label }}:</strong> {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if data %}
+    <h3>📝 Detailed Analysis (Top 50 Rows)</h3>
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</body>
+</html>
